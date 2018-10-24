@@ -2,7 +2,7 @@ class App
 
     ### HEADER ###
     def self.header
-        puts "Welcome!"
+        puts "This is inspire2calm!"
     end
 
     ### CREATE PROFILE/SIGN IN AND OUT ###
@@ -31,7 +31,8 @@ class App
     end
 
     def self.reload_screen
-
+        system("clear")
+        App.header
     end
 
     def self.invalid_input
