@@ -14,8 +14,9 @@ class User < ActiveRecord::Base
     def create_profile
         puts "Please enter a username:"
         username_input = gets.chomp
-        User.create(username: username_input)
+        user = User.create(username: username_input)
         puts "Thanks #{username_input}, your profile is all set up. Enjoy the app!"
+        return user
     end
 
     def sign_in
@@ -28,6 +29,7 @@ class User < ActiveRecord::Base
         user = User.find_by(username: username_input)
         if user.username == username_input
             puts "Thank you #{user.username}, your profile is ready to use."
+            return user
         else
             puts "Hmmm! We couldn't find you in our system."
             puts # newline

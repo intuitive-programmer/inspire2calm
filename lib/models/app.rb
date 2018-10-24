@@ -12,19 +12,18 @@ class App
     end
 
     ### RUN APPLICATION ###
-    def self.run
-        user_select = User.navigation
-        case user_select
+    def self.run(user, user_selection)
+        case user_selection
         when "home"
-            Home.display
+            Home.display(user)
         when "categories"
-            Category.display
+            Category.display(user)
         when "posts"
-            Post.display
+            Post.display(user)
         when "meditations"
-            Meditation.display
+            Meditation.display(user)
         when "sign_out"
-            App.sign_out
+            App.sign_out(user)
         else
             App.invalid_input
         end
