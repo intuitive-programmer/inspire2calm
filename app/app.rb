@@ -35,6 +35,10 @@ class App
         fork{ exec "kill #{@background_music}" }
     end
 
+    def self.delay(time)
+        sleep(time)
+    end
+
     ### RUN APPLICATION ###
 
     def self.select_and_run(user)
