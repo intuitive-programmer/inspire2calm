@@ -40,6 +40,11 @@ class Category < ActiveRecord::Base
         selected_category = prompt.select("What category would you like to explore?", choices)
         selected_category = selected_category.split.last
         Category.update_popularity(selected_category)
+        return selected_category
+    end
+
+    def self.get_id(selected_category)
+        Category.find_by(name: selected_category).id
     end
 
     def self.media

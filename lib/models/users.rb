@@ -6,8 +6,6 @@ class User < ActiveRecord::Base
             User.create_profile
         when "sign_in"
             User.sign_in
-        else
-            App.invalid_input
         end
     end
 
