@@ -1,17 +1,35 @@
 class App
 
     ### HEADER ###
-    def self.header
-        puts "This is inspire2calm!"
+    def self.header                                       
+        puts " _             _         ___         _       "
+        puts "|_|___ ___ ___|_|___ ___|_  |___ ___| |_____ "
+        puts "| |   |_ -| . | |  _| -_|  _|  _| .'| |     |"
+        puts "|_|_|_|___|  _|_|_| |___|___|___|__,|_|_|_|_|"
+        puts "          |_|                                "
+        puts "\n"
+        puts "### INSPIRATIONAL WORDS AND CALMING SOUNDS ###"
+        puts "\n"
+        puts "Created by Steven Rico and Dario Spina."
+        puts "\n"
+        puts "\n"
     end
 
     ### CREATE PROFILE/SIGN IN AND OUT ###
     def self.create_profile_or_sign_in
+        puts "### WELCOME ###"
+        puts "\n"
         prompt = TTY::Prompt.new
         prompt.select("What would you like to do?", %w(create_profile sign_in))
     end
 
     ### RUN APPLICATION ###
+
+    def self.select_and_run(user)
+        user_selection = User.navigation
+        App.run(user, user_selection)
+    end
+
     def self.run(user, user_selection)
         case user_selection
         when "home"
@@ -28,7 +46,7 @@ class App
             App.invalid_input
         end
     end
-
+        
     def self.reload_screen
         system("clear")
         App.header
@@ -38,7 +56,15 @@ class App
 
     end
 
-    def self.sign_out
-
+    def self.sign_out(user)
+        App.reload_screen
+        puts "### TIME TO SAY GOODBYE ###"
+        puts "\n"
+        puts "The journey has come to an end."
+        puts "\n"
+        puts "It was a pleasure, farewell!"
+        puts "\n"
+        puts "Credits to Dan, Marju and Wachira."
+        puts "\n"
     end
 end
