@@ -18,6 +18,7 @@ class Meditation < ActiveRecord::Base
     def self.select(selected_category)
         prompt = TTY::Prompt.new
         choices = []
+        binding.pry
         Meditation.get(selected_category)
             .each_with_index do |m, index|
                 choices << "#{index + 1}. #{m.title}"
