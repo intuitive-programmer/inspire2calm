@@ -39,13 +39,13 @@ class User < ActiveRecord::Base
             puts "\n"
             puts "Hmmm! We couldn't find you in our system."
             puts "\n"
-            create_profile_or_sign_in = App.create_profile_or_sign_in
+            create_profile_or_sign_in = App.create_profile_or_sign_in 
             User.start(create_profile_or_sign_in)
         elsif user.username == username_input
             return user
         end
     end
-    
+
     def self.navigation
         prompt = TTY::Prompt.new
         prompt.select("Where would you like to go?", %w(home categories posts meditations sign_out))
