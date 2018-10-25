@@ -1,7 +1,9 @@
 require_relative '../config/environment'
 
-App.header
+App.reload_screen
 create_profile_or_sign_in = App.create_profile_or_sign_in
+App.reload_screen
+
 user = User.start(create_profile_or_sign_in)
 App.reload_screen
 
