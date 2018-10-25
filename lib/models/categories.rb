@@ -5,6 +5,8 @@ class Category < ActiveRecord::Base
         Shamanic: 0
     }
 
+    # BUG! Doesn't update existing categories.
+
     def self.update_popularity(selected_category)
         to_be_updated = Category.find_by(name: selected_category)
         Category.update_counters to_be_updated.id, count: 1
@@ -24,17 +26,28 @@ class Category < ActiveRecord::Base
         puts "\n"
         Category.select
         puts "\n"
+        # Category.media?
         App.select_and_run(user)
     end
 
     def self.select
         prompt = TTY::Prompt.new
         choices = []
-        Category.categories_by_popularity.each_with_index { |category, index|
-            choices << "#{index + 1}. #{category}"
-        }
+        Category.categories_by_popularity
+            .each_with_index do |category, index|
+                choices << "#{index + 1}. #{category}"
+            end
         selected_category = prompt.select("What category would you like to explore?", choices)
         selected_category = selected_category.split.last
         Category.update_popularity(selected_category)
     end
+
+    def self.media
+        # Post.title
+        # Post.blurb
+        # Post.read_more
+        # Meditation.display
+        # Meditation.select
+    end
+
 end

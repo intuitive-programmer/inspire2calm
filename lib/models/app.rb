@@ -1,6 +1,7 @@
 class App
 
     ### HEADER ###
+
     def self.header                                       
         puts " _             _         ___         _       "
         puts "|_|___ ___ ___|_|___ ___|_  |___ ___| |_____ "
@@ -16,6 +17,7 @@ class App
     end
 
     ### CREATE PROFILE/SIGN IN AND OUT ###
+
     def self.create_profile_or_sign_in
         puts "### WELCOME ###"
         puts "\n"
@@ -44,6 +46,7 @@ class App
             App.sign_out(user)
         else
             App.invalid_input
+            App.run(user, user_selection)
         end
     end
         
@@ -53,7 +56,7 @@ class App
     end
 
     def self.invalid_input
-
+        puts "Invalid input, have another go!"
     end
 
     def self.sign_out(user)

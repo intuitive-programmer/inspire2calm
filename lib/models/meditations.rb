@@ -7,4 +7,8 @@ class Meditation < ActiveRecord::Base
         App.select_and_run(user)
     end
 
+    def self.select
+
+    end
+
 end
