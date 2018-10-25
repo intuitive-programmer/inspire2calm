@@ -25,6 +25,20 @@ class App
         prompt.select("What would you like to do?", %w(create_profile sign_in))
     end
 
+    ### APP MUSIC ###
+
+    def self.background_music_on
+        @background_music = fork{ exec "afplay public/audio/background_music_i2c.mp3" } 
+    end
+
+    def self.background_music_off
+        fork{ exec "kill #{@background_music}" }
+    end
+
+    def self.delay(time)
+        sleep(time)
+    end
+
     ### RUN APPLICATION ###
 
     def self.select_and_run(user)
