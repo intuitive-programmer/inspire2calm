@@ -1,5 +1,6 @@
 class Category < ActiveRecord::Base
-
+    has_many :meditations, through: :category_meditations
+    has_many :posts, through: :category_posts
     @@categories_with_count = {
         Mindfulness: 0,
         Shamanic: 0
@@ -48,7 +49,7 @@ class Category < ActiveRecord::Base
     end
 
     def self.media
-        # Post.title
+        Scrape.description_array(title_link_hash, title_array)
         # Post.blurb
         # Post.read_more
         # Meditation.display

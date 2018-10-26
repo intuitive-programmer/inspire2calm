@@ -1,4 +1,5 @@
 class Post < ActiveRecord::Base
+has_one :category, through: :category_posts
 
     def self.display(user)
         App.reload_screen
@@ -26,8 +27,11 @@ class Post < ActiveRecord::Base
       prompt = TTY::Prompt.new
       selected_option=prompt.select("Do you want go to the website and read the whole article?", %w(Yes No))
         if selected_option=="Yes"
-          Launchy.open(link)
+            Launchy.open(link)
+            App.reload_screen
+            App.select_and_run(user)
         else
+            App.reload_screen
             App.select_and_run(user)
         end
     end

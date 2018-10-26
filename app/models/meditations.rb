@@ -1,4 +1,5 @@
 class Meditation < ActiveRecord::Base
+    has_many :categories, through: :category_meditations
 
     def self.display(user)
         App.reload_screen
