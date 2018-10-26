@@ -1,4 +1,5 @@
 class Meditation < ActiveRecord::Base
+    has_many :category_meditations
     has_many :categories, through: :category_meditations
 
     def self.display(user)

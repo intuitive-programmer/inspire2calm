@@ -1,9 +1,12 @@
 class Category < ActiveRecord::Base
+    has_many :category_meditations
     has_many :meditations, through: :category_meditations
+    has_many :category_posts
     has_many :posts, through: :category_posts
+    
     @@categories_with_count = {
         Mindfulness: 0,
-        Shamanic: 0
+        Spirituality: 0
     }
 
     # BUG! Doesn't update existing categories.

@@ -1,5 +1,6 @@
 class Post < ActiveRecord::Base
-has_one :category, through: :category_posts
+    has_many :category_posts
+    has_many :categories, through: :category_posts
 
     def self.display(user)
         App.reload_screen
