@@ -14,13 +14,21 @@ class Category < ActiveRecord::Base
     def self.update_popularity(selected_category)
         to_be_updated = Category.find_by(name: selected_category)
         Category.update_counters to_be_updated.id, count: 1
+        count = Category.where(name: selected_category).count
+        selected_category = selected_category.to_sym
+        @@categories_with_count[selected_category] = count
 
-        @@categories_with_count[selected_category] ||= to_be_updated.count
+        # if @@categories_with_count[selected_category]
+        #     binding.pry
+        #     @@categories_with_count[selected_category] += 1
+        # else
+        #     @@categories_with_count[selected_category] = 0
+        # end
     end
 
     def self.categories_by_popularity
         @@categories_with_count
-        .sort_by { |category, count| count }
+        .sort_by { |category, count| -count }
         .map { |category, count| category }
     end
 
@@ -28,19 +36,18 @@ class Category < ActiveRecord::Base
         App.reload_screen
         puts "### CATEGORIES ###"
         puts "\n"
-        Category.select
+        category = Category.select
         puts "\n"
-        # Category.media?
-        App.select_and_run(user)
+        Category.media(user, category)
     end
 
     def self.select
         prompt = TTY::Prompt.new
         choices = []
         Category.categories_by_popularity
-            .each_with_index do |category, index|
-                choices << "#{index + 1}. #{category}"
-            end
+        .each_with_index do |category, index|
+            choices << "#{index + 1}. #{category}"
+        end
         selected_category = prompt.select("What category would you like to explore?", choices)
         selected_category = selected_category.split.last
         Category.update_popularity(selected_category)
@@ -51,12 +58,17 @@ class Category < ActiveRecord::Base
         Category.find_by(name: selected_category).id
     end
 
-    def self.media
-        Scrape.description_array(title_link_hash, title_array)
-        # Post.blurb
-        # Post.read_more
-        # Meditation.display
-        # Meditation.select
+    def self.media(user, category)
+        posts = Post.all.select { |p| p.categories.first.name == category }
+            .map { |p| p.description }
+        puts posts[rand(3)]
+        puts "\n"   
+        Meditation.get(category)
+        .each_with_index do |m, index|
+            puts "#{index + 1}. #{m.title}"
+        end
+        puts "\n"
+        App.select_and_run(user)
     end
 
 end

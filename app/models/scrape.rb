@@ -1,7 +1,8 @@
 class Scrape
 
   def self.get_page_from_category(category)
-      webpage=Nokogiri::HTML(open("https://medium.com/tag/#{category}"))
+      Scrape.loading_page
+        webpage=Nokogiri::HTML(open("https://medium.com/tag/#{category}"))
       Scrape.get_title_array(webpage,category)
   end
 
@@ -28,6 +29,7 @@ class Scrape
     end
 
   def self.website_array(webpage,title_array)
+    Scrape.loading_page
       website_array=webpage.css('div.js-tagStream a').map {|x| x.attribute('href').value}.map{|x| x.split('?')}.map{|x| x[0]}.uniq.select {|x| x.size>50 }
       website_array=website_array[0...3]
       Scrape.update_database("link", website_array)
@@ -41,9 +43,40 @@ class Scrape
   end
 
   def self.description_array(title_link_hash,title_array)
+    Scrape.loading_page
       description_array=title_link_hash.map{|x,y| "#{x} - #{Nokogiri::HTML(open(y)).css('div.section-inner').text[x.length...500]} ... Continues on the website"}
       Scrape.update_database("description", description_array)
       Post.show_posts(title_link_hash,description_array,title_array)
   end
 
+  def self.loading_page
+    App.reload_screen
+    App.delay(0.2)
+    puts "Scraping... scraping... scraping..."
+    App.delay(0.2)
+    App.reload_screen
+    puts "Scraping... scraping... scraping..."
+    App.delay(0.2)
+    App.reload_screen
+    App.delay(0.2)
+    puts "Scraping... scraping... scraping..."
+    App.delay(0.2)
+    App.reload_screen
+    App.delay(0.2)
+    puts "Scraping... scraping... scraping..."
+    App.delay(0.2)
+    App.reload_screen
+    App.delay(0.2)
+    puts "Scraping... scraping... scraping..."
+    App.delay(0.2)
+    App.reload_screen
+    App.delay(0.2)
+    puts "Scraping... scraping... scraping..."
+    App.delay(0.2)
+    App.reload_screen
+    App.delay(0.2)
+    puts "Scraping... scraping... scraping..."
+    App.delay(0.2)
+    App.reload_screen
+  end
 end
